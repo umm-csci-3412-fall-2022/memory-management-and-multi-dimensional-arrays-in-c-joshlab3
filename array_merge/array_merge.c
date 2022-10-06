@@ -23,20 +23,10 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   // Sort the values in the temporary array list
   mergesort(valueAmount, temp);
 
-  uniqueNumbers(valueAmount, temp);
+  int unique = uniqueNumbers(valueAmount, temp);
 
-  int *result = (int*) calloc(index, sizeof(int));
+  int *result = createCorrectArray(unique, valueAmount, temp);
 
-  result[0] = index - 1;
-
-
-  index = 1;
-  for (int i = 0; i < valueAmount; i++) {
-    if (temp[i] != '\0') {
-      result[index] = temp[i];
-      index++;
-    }
-  }
 
   return sizes;
 }
@@ -64,4 +54,25 @@ int uniqueNumbers(int valueAmount, int* temp) {
     }
   }
   return index;
+}
+
+int createCorrectArray(int unique, int valueAmount, int* temp) {
+  int *result = (*int) calloc(unique + 1, sizeof(int));
+  result[0] = unique;
+
+  if (valueAmount == 0) {
+    return result;
+  }
+
+  result[1] = temp[0];
+  int LastNumber = temp[0];
+  int index = 2;
+
+  for (int i = 1; i < valueAmount; i++) {
+    if (temp[i] != LastNumber) {
+      result[index] = temp[i];
+      index++;
+    }
+  }
+  return result;
 }
