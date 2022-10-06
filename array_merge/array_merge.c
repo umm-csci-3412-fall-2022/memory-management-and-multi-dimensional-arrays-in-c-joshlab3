@@ -71,6 +71,7 @@ int* createCorrectArray(int unique, int valueAmount, int* temp) {
   for (int i = 1; i < valueAmount; i++) {
     if (temp[i] != LastNumber) {
       result[index] = temp[i];
+      LastNumber = temp[i];
       index++;
     }
   }
