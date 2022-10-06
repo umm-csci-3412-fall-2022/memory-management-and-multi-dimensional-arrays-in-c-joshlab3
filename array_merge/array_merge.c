@@ -4,8 +4,9 @@
 int* array_merge(int num_arrays, int* sizes, int** values) {
   
   int index = 0;
-  int *result = (int*) calloc(sizeof(values)/4 + 1, sizeof(int));
-  int *temp = (int*) calloc(sizeof(values)/4, sizeof(int));
+  int valueAmount = sizeof(values)/4;
+  int *result = (int*) calloc(valueAmount + 1, sizeof(int));
+  int *temp = (int*) calloc(valueAmount, sizeof(int));
 
   // Put all numbers from the values 2D-array into the temporary array list
   for (int i = 0; i < num_arrays; i++) {
@@ -16,8 +17,16 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   }
 
   // Sort the values in the temporary array list
-  mergesort(sizeof(values)/4, temp);
+  mergesort(valueAmount, temp);
 
+  int LastNumber = temp[0]; 
+  for (int i = 1; i < valueAmount; i++) {
+    if (temp[i] == LastNumber) {
+      temp[i] = '\0';
+    } else {
+      LastNumber = temp[i];
+    }
+  }
 
 
 
