@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 int valueNumber(int, int*);
-
 int uniqueNumbers(int, int*);
+int* createCorrectArray(int, int, int*);
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
 
@@ -28,7 +28,7 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   int *result = createCorrectArray(unique, valueAmount, temp);
 
 
-  return sizes;
+  return result;
 }
 
 int valueNumber(int num_arrays, int* sizes) {
@@ -56,8 +56,8 @@ int uniqueNumbers(int valueAmount, int* temp) {
   return index;
 }
 
-int createCorrectArray(int unique, int valueAmount, int* temp) {
-  int *result = (*int) calloc(unique + 1, sizeof(int));
+int* createCorrectArray(int unique, int valueAmount, int* temp) {
+  int *result = (int*) calloc(unique + 1, sizeof(int));
   result[0] = unique;
 
   if (valueAmount == 0) {
