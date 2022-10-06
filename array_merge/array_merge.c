@@ -2,10 +2,12 @@
 #include "../mergesort/mergesort.h"
 #include <stdlib.h>
 
+int ValueNumber(int, int*);
+
 int* array_merge(int num_arrays, int* sizes, int** values) {
-  
+
   int index = 0;
-  int valueAmount = sizeof(values)/4;
+  int valueAmount = ValueNumber(num_arrays, sizes);
   int *temp = (int*) calloc(valueAmount, sizeof(int));
 
   // Put all numbers from the values 2D-array into the temporary array list
@@ -45,4 +47,12 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   }
 
   return sizes;
+}
+
+int ValueNumber(int num_arrays, int* sizes) {
+  int a = 0;
+  for (int i = 0; i < num_arrays; i++) {
+    a += sizes[i];
+  }
+  return a;
 }
