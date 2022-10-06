@@ -2,12 +2,14 @@
 #include "../mergesort/mergesort.h"
 #include <stdlib.h>
 
-int ValueNumber(int, int*);
+int valueNumber(int, int*);
+
+int uniqueNumbers(int, int*);
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
 
   int index = 0;
-  int valueAmount = ValueNumber(num_arrays, sizes);
+  int valueAmount = valueNumber(num_arrays, sizes);
   int *temp = (int*) calloc(valueAmount, sizeof(int));
 
   // Put all numbers from the values 2D-array into the temporary array list
@@ -21,17 +23,7 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   // Sort the values in the temporary array list
   mergesort(valueAmount, temp);
 
-  // If a number is the same as the number before it, it becomes null
-  int LastNumber = temp[0]; 
-  index = 2;
-  for (int i = 1; i < valueAmount; i++) {
-    if (temp[i] != LastNumber) {
-      LastNumber = temp[i];
-      index++;
-    } else {
-      temp[i] = '\0';
-    }
-  }
+  uniqueNumbers(valueAmount, temp);
 
   int *result = (int*) calloc(index, sizeof(int));
 
@@ -49,10 +41,27 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   return sizes;
 }
 
-int ValueNumber(int num_arrays, int* sizes) {
+int valueNumber(int num_arrays, int* sizes) {
   int a = 0;
   for (int i = 0; i < num_arrays; i++) {
     a += sizes[i];
   }
   return a;
+}
+
+int uniqueNumbers(int valueAmount, int* temp) {
+  if (valueAmount == 0) {
+    return 0;
+  }
+
+  int index = 1;
+  int LastNumber = temp[0];
+  
+  for (int i = 1; i < valueAmount; i++) {
+    if (temp[i] != LastNumber) {
+      index++;
+      LastNumber = temp[i];
+    }
+  }
+  return index;
 }
