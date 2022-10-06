@@ -1,11 +1,11 @@
 #include "array_merge.h"
 #include "../mergesort/mergesort.h"
+#include <stdlib.h>
 
 int* array_merge(int num_arrays, int* sizes, int** values) {
   
   int index = 0;
   int valueAmount = sizeof(values)/4;
-  int *result = (int*) calloc(valueAmount + 1, sizeof(int));
   int *temp = (int*) calloc(valueAmount, sizeof(int));
 
   // Put all numbers from the values 2D-array into the temporary array list
@@ -19,18 +19,30 @@ int* array_merge(int num_arrays, int* sizes, int** values) {
   // Sort the values in the temporary array list
   mergesort(valueAmount, temp);
 
+  // If a number is the same as the number before it, it becomes null
   int LastNumber = temp[0]; 
+  index = 2;
   for (int i = 1; i < valueAmount; i++) {
-    if (temp[i] == LastNumber) {
-      temp[i] = '\0';
-    } else {
+    if (temp[i] != LastNumber) {
       LastNumber = temp[i];
+      index++;
+    } else {
+      temp[i] = '\0';
     }
   }
 
+  int *result = (int*) calloc(index, sizeof(int));
+
+  result[0] = index - 1;
 
 
- 	
+  index = 1;
+  for (int i = 0; i < valueAmount; i++) {
+    if (temp[i] != '\0') {
+      result[index] = temp[i];
+      index++;
+    }
+  }
 
   return sizes;
 }
